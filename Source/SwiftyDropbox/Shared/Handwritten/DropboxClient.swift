@@ -12,8 +12,8 @@ open class DropboxClient: DropboxBase {
     fileprivate var accessToken: String;
     fileprivate var selectUser: String?
 
-    public convenience init(accessToken: String, selectUser: String? = nil, pathRoot: Common.PathRoot? = nil) {
-        let transportClient = DropboxTransportClient(accessToken: accessToken, selectUser: selectUser, pathRoot: pathRoot)
+	public convenience init(accessToken: String, selectUser: String? = nil, pathRoot: Common.PathRoot? = nil,customBackgroundSession:SessionManager? = nil) {
+        let transportClient = DropboxTransportClient(accessToken: accessToken, selectUser: selectUser, pathRoot: pathRoot,customSessionManager: customBackgroundSession)
         self.init(transportClient: transportClient)
     }
 

@@ -6,6 +6,7 @@ import Foundation
 import SafariServices
 import UIKit
 import WebKit
+import Alamofire
 
 extension DropboxClientsManager {
     public static func authorizeFromController(_ sharedApplication: UIApplication, controller: UIViewController?, openURL: @escaping ((URL) -> Void)) {
@@ -15,7 +16,7 @@ extension DropboxClientsManager {
         DropboxOAuthManager.sharedOAuthManager.authorizeFromSharedApplication(sharedMobileApplication)
     }
 
-    public static func setupWithAppKey(_ appKey: String, transportClient: DropboxTransportClient? = nil) {
+	public static func setupWithAppKey(_ appKey: String, transportClient: DropboxTransportClient? = nil) {
         setupWithOAuthManager(appKey, oAuthManager: DropboxMobileOAuthManager(appKey: appKey), transportClient: transportClient)
     }
 

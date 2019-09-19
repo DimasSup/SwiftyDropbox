@@ -11,6 +11,9 @@ import Alamofire
 ///
 /// For information on the available API methods, see the documentation for DropboxClient
 open class DropboxClientsManager {
+	
+	public static var customBackgroundSession:SessionManager?
+	
     /// An authorized client. This will be set to nil if unlinked.
     public static var authorizedClient: DropboxClient?
 
@@ -85,7 +88,7 @@ open class DropboxClientsManager {
                 transportClient.accessToken = accessToken.accessToken
                 authorizedClient = DropboxClient(transportClient: transportClient)
             } else {
-                authorizedClient = DropboxClient(accessToken: accessToken.accessToken)
+                authorizedClient = DropboxClient(accessToken: accessToken.accessToken,customBackgroundSession: customBackgroundSession)
             }
         } else {
             if let transportClient = transportClient {
@@ -115,7 +118,7 @@ open class DropboxClientsManager {
         if let result =  DropboxOAuthManager.sharedOAuthManager.handleRedirectURL(url) {
             switch result {
             case .success(let accessToken):
-                DropboxClientsManager.authorizedClient = DropboxClient(accessToken: accessToken.accessToken)
+				DropboxClientsManager.authorizedClient = DropboxClient(accessToken: accessToken.accessToken,customBackgroundSession: self.customBackgroundSession)
                 return result
             case .cancel:
                 return result
